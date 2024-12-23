@@ -59,6 +59,7 @@ def kanban_select():
                 "error_code": -9,
                 "error_description": e.__str__()}
 
+
 # Работа с пользователями
 # ///////////////////////
 
@@ -99,6 +100,7 @@ def api_users_add():
                 "error_code": -9,
                 "error_description": e.__str__()}
 
+
 @app.route("/api/users/read", methods=["GET"])
 def api_users_read():
     try:
@@ -109,6 +111,7 @@ def api_users_read():
         return {"r": 0,
                 "error_code": -9,
                 "error_description": e.__str__()}
+
 
 @app.route("/api/users/update", methods=["GET"])
 def api_users_update():
@@ -122,6 +125,7 @@ def api_users_update():
                 "error_code": -9,
                 "error_description": e.__str__()}
 
+
 @app.route("/api/users/delete", methods=["GET"])
 def api_users_delete():
     try:
@@ -132,6 +136,7 @@ def api_users_delete():
         return {"r": 0,
                 "error_code": -9,
                 "error_description": e.__str__()}
+
 
 # Работа с проектами
 # //////////////////
@@ -146,6 +151,7 @@ def api_projects():
         return {"r": 0,
                 "error_code": -9,
                 "error_description": e.__str__()}
+
 
 @app.route("/api/projects/list", methods=["GET"])
 def api_projects_list():
@@ -170,6 +176,7 @@ def api_projects_add():
                 "error_code": -9,
                 "error_description": e.__str__()}
 
+
 @app.route("/api/projects/read", methods=["GET"])
 def api_projects_read():
     try:
@@ -180,6 +187,7 @@ def api_projects_read():
         return {"r": 0,
                 "error_code": -9,
                 "error_description": e.__str__()}
+
 
 @app.route("/api/projects/update", methods=["GET"])
 def api_projects_update():
@@ -193,6 +201,7 @@ def api_projects_update():
                 "error_code": -9,
                 "error_description": e.__str__()}
 
+
 @app.route("/api/projects/delete", methods=["GET"])
 def api_projects_delete():
     try:
@@ -203,6 +212,7 @@ def api_projects_delete():
         return {"r": 0,
                 "error_code": -9,
                 "error_description": e.__str__()}
+
 
 # Работа с задачами
 # /////////////////
@@ -217,6 +227,7 @@ def api_tasks():
         return {"r": 0,
                 "error_code": -9,
                 "error_description": e.__str__()}
+
 
 @app.route("/api/tasks/list", methods=["GET"])
 def api_tasks_list():
@@ -243,6 +254,7 @@ def api_tasks_add():
                 "error_code": -9,
                 "error_description": e.__str__()}
 
+
 @app.route("/api/tasks/read", methods=["GET"])
 def api_tasks_read():
     try:
@@ -253,6 +265,7 @@ def api_tasks_read():
         return {"r": 0,
                 "error_code": -9,
                 "error_description": e.__str__()}
+
 
 @app.route("/api/tasks/update", methods=["GET"])
 def api_tasks_update():
@@ -266,6 +279,7 @@ def api_tasks_update():
                 "error_code": -9,
                 "error_description": e.__str__()}
 
+
 @app.route("/api/tasks/delete", methods=["GET"])
 def api_tasks_delete():
     try:
@@ -277,10 +291,10 @@ def api_tasks_delete():
                 "error_code": -9,
                 "error_description": e.__str__()}
 
+
 if __name__ == "__main__":
     # print(list_of_active_users())
     # print("lllllllllll")
     # print(api_users_list())
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
 
-print(update_user(1, "Test"))
