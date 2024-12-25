@@ -5,7 +5,7 @@ from CRUD_PROJECTS import create_project, read_project, update_project, delete_p
 from CRUD_TASKS import create_task, read_task, update_task, delete_task
 from api_users import list_of_active_users, select_user
 from api_projects import select_project, list_of_active_projects
-from api_tasks import select_task, list_of_active_tasks
+from api_tasks import select_task, list_of_active_tasks, tasks_in_project_func, tasks_by_users_func
 from kanban_table_select import select_kanban
 from add_delete_users_in_project import create_users_in_projects, delete_users_in_project
 import json
@@ -312,6 +312,30 @@ def api_tasks_delete():
     try:
         value: int = int(request.args.get("value", ""))
         r = json.dumps(delete_task(value))
+        return r
+    except Exception as e:
+        return {"r": 0,
+                "error_code": -9,
+                "error_description": e.__str__()}
+
+
+@app.route("/api/tasks/projects", methods=["GET"])
+def api_tasks_in_project():
+    try:
+        value: int = int(request.args.get("value", ""))
+        r = json.dumps(tasks_in_project_func(value))
+        return r
+    except Exception as e:
+        return {"r": 0,
+                "error_code": -9,
+                "error_description": e.__str__()}
+
+
+@app.route("/api/tasks/users", methods=["GET"])
+def api_tasks_by_users():
+    try:
+        value: int = int(request.args.get("value", ""))
+        r = json.dumps(tasks_by_users_func(value))
         return r
     except Exception as e:
         return {"r": 0,
