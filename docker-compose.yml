@@ -1,0 +1,24 @@
+
+version: "3.9"
+
+services:
+  flask_app:
+    build:
+      context: ./KANBAN_BOARD_MTUCI
+      dockerfile: Dockerfile
+    container_name: flask_app
+    ports:
+      - "5000:5000" # optional для локальной отладки
+    expose:
+      - "5000"
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf  # Привязываем конфиг Nginx
+    ports:
+      - "80:80"  # Порт для запросов веб-клиентов
+    depends_on:
+      - flask_app
+
