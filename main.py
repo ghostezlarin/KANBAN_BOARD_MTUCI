@@ -7,6 +7,7 @@ from api_users import list_of_active_users, select_user
 from api_projects import select_project, list_of_active_projects
 from api_tasks import select_task, list_of_active_tasks
 from kanban_table_select import select_kanban
+from add_delete_users_in_project import create_users_in_projects, delete_users_in_project
 import json
 
 app = Flask(__name__)
@@ -131,6 +132,32 @@ def api_users_delete():
     try:
         value: int = int(request.args.get("value", ""))
         r = json.dumps(delete_user(value))
+        return r
+    except Exception as e:
+        return {"r": 0,
+                "error_code": -9,
+                "error_description": e.__str__()}
+
+
+@app.route("/api/users/project_add", methods=["GET"])
+def api_users_add_project():
+    try:
+        user_id: int = int(request.args.get("user_id", ""))
+        project_id: int = int(request.args.get("project_id", ""))
+        r = json.dumps(create_users_in_projects(user_id, project_id))
+        return r
+    except Exception as e:
+        return {"r": 0,
+                "error_code": -9,
+                "error_description": e.__str__()}
+
+
+@app.route("/api/users/project_delete", methods=["GET"])
+def api_users_delete_project():
+    try:
+        user_id: int = int(request.args.get("user_id", ""))
+        project_id: int = int(request.args.get("project_id", ""))
+        r = json.dumps(delete_users_in_project(user_id, project_id))
         return r
     except Exception as e:
         return {"r": 0,
@@ -297,4 +324,3 @@ if __name__ == "__main__":
     # print("lllllllllll")
     # print(api_users_list())
     app.run(host='0.0.0.0', port=5000)
-
