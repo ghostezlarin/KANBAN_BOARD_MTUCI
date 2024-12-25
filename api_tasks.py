@@ -173,6 +173,48 @@ def tasks_in_project_func(project_id: int):
             "error_desc": error_desc}
 
 
+def select_from_logs(task_id):
+    connection = 0
+    error_code = 0
+    error_desc = ""
+    r = 0
+    try:
+        connection = psycopg2.connect(user=user,
+                                      password=password,
+                                      host=host,
+                                      port=port,
+                                      database=database)
+        print(connection)
+        print("Connection is successful")
+
+    except Exception as e:
+        error_code = -1
+        error_desc = e.__str__()
+        print("addd4ea0-918d-4e01-ab69-cb9f01018eeb")
+        print(error_code, error_desc)
+    if error_code == 0:
+        try:
+            cursor = connection.cursor()
+            insert_query = """SELECT json_agg(Q.*) FROM (SELECT * FROM public.t_tasks_log WHERE task_id=%s) Q;"""
+            cursor.execute(insert_query, (task_id,))
+            r = cursor.fetchall()[0][0]
+            print(r)
+            connection.commit()
+            connection.close()
+            print("Select was successful")
+        except Exception as e:
+            error_code = -2
+            error_desc = e.__str__()
+            print(error_code, error_desc)
+            print("898d17c6-6897-4623-b3e3-a8528de11bf4")
+
+    return {"r": r,
+            "error_code": error_code,
+            "error_desc": error_desc}
+
+
+# print(select_from_logs(3))
+
 # print(tasks_in_project_func(1))
 # # print(select_from_users_active_view())
 # # r = json.dumps(select_from_users_active_view())
